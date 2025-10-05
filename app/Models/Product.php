@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Product extends Model
 {
     protected $fillable = [
+        'discount_id',
         'device_model_id',
         'color_id',
         'storage_capacity_id',
         'name',
         'slug',
         'price',
+        'discounted_price',
         'has_esim',
         'has_nanosim',
         'has_dualsim',
@@ -33,5 +35,10 @@ class Product extends Model
     public function storageCapacity(): BelongsTo
     {
         return $this->belongsTo(ProductStorageCapacity::class);
+    }
+
+    public function discount(): BelongsTo
+    {
+        return $this->belongsTo(Discount::class);
     }
 }

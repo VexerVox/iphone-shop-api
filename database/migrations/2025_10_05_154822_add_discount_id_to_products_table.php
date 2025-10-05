@@ -9,14 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->boolean('is_available')->default(true)->after('has_dualsim');
+            $table->foreignId('discount_id')->nullable()->after('id')->constrained('discounts')->nullOnDelete();
         });
     }
 
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('is_available');
+            $table->dropConstrainedForeignId('discount_id');
         });
     }
 };

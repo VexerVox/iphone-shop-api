@@ -9,14 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->boolean('is_available')->default(true)->after('has_dualsim');
+            $table->unsignedInteger('discounted_price')->nullable()->after('price');
         });
     }
 
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('is_available');
+            $table->dropColumn('discounted_price');
         });
     }
 };

@@ -18,6 +18,7 @@ class ProductResource extends JsonResource
             'storageCapacity' => ProductStorageCapacityResource::make($this->whenLoaded('storageCapacity')),
             'color' => ProductColorResource::make($this->whenLoaded('color')),
             'price' => $this->price,
+            'discounted_price' => $this->discounted_price,
             'hasEsim' => (bool) $this->has_esim,
             'hasNanosim' => (bool) $this->has_nanosim,
             'hasDualsim' => (bool) $this->has_dualsim,
