@@ -1,0 +1,74 @@
+services:
+  php:
+    container_name: is-php
+    build: ./build/images/php
+    volumes:
+      - ./:/var/www/html
+      - ./build/cron:/etc/cron.d
+      - ./build/supervisor/supervisor.conf:/etc/supervisor/conf.d/supervisor.conf
+      - ./build/logs/supervisor:/var/log/supervisor/
+      - ./build/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./build/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./build/php/docker-php-custom.ini:/usr/local/etc/php/conf.d/docker-php-custom.ini
+      - ./build/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+    depends_on:
+      - mysql
+    networks:
+      - app_network
+
+  mysql:
+    image: mysql:8
+    container_name: is-mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-iphoneshop}
+      - MYSQL_USER=${DB_USERNAME:-iphoneshop}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-iphoneshop}
+      - MYSQL_DATABASE=${DB_DATABASE:-iphoneshop}
+    ports:
+      - "3306:3306"
+
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:${NGINX_VERSION:-latest}
+    container_name: is-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./build/nginx:/etc/nginx/conf.d
+      - ./build/logs/nginx:/var/log/nginx
+      - ./:/var/www/html
+    depends_on:
+      - php
+    networks:
+      app_network:
+        aliases:
+          - php
+
+  redis:
+    image: redis
+    container_name: is-redis
+    command: [ "redis-server", "--appendonly", "yes", "--requirepass", "FvlYWkaLXz1x" ]
+    networks:
+      - app_network
+
+  mailcatcher:
+    image: yappabe/mailcatcher
+    container_name: is-mailcatcher
+    ports:
+      - '1025:1025'
+      - '1080:1080'
+    networks:
+      - app_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge
