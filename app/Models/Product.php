@@ -17,6 +17,7 @@ class Product extends Model
         'has_esim',
         'has_nanosim',
         'has_dualsim',
+        'is_available',
     ];
 
     public function deviceModel(): BelongsTo

@@ -10,6 +10,7 @@ class ProductService
     public function index(ProductIndexData $data)
     {
         $query = Product::query()
+            ->where('is_available', true)
             ->with([
                 'deviceModel',
                 'color',
