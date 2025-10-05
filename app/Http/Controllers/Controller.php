@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class Controller
 {
@@ -22,6 +23,9 @@ abstract class Controller
             $response = [
                 'success' => $success,
             ];
+        } elseif ($data?->resource instanceof LengthAwarePaginator) {
+            $response['success'] = $success;
+            $response += $data->toArray(request());
         } else {
             $response = [
                 'success' => $success,
