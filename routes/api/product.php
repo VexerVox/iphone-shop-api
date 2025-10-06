@@ -11,4 +11,3 @@ Route::get('/device-models', [DeviceModelController::class, 'index'])->name('dev
 
 Route::get('/', [ProductController::class, 'list'])->name('index');
 Route::get('/{product:slug}', [ProductController::class, 'show'])->name('show');
-

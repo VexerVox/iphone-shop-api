@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             ProductStorageCapacitySeeder::class,
             DeviceModelSeeder::class,
             ProductSeeder::class,
-            DiscountSeeder::class,
+            //            DiscountSeeder::class,
         ]);
     }
 }

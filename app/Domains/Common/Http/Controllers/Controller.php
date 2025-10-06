@@ -23,7 +23,7 @@ abstract class Controller
             $response = [
                 'success' => $success,
             ];
-        } elseif ($data?->resource instanceof LengthAwarePaginator) {
+        } elseif (is_object($data) && $data?->resource instanceof LengthAwarePaginator) {
             $response['success'] = $success;
             $response += $data->toArray(request());
         } else {
