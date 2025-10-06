@@ -7,10 +7,12 @@ use App\Domains\Checkout\Enums\OrderStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
     protected $fillable = [
+        'uuid',
         'status',
         'user_id',
         'total',
@@ -19,6 +21,13 @@ class Order extends Model
     protected $casts = [
         'status' => OrderStatusEnum::class,
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function ($order) {
+            $order->uuid = Str::uuid();
+        });
+    }
 
     public function items(): HasMany
     {
