@@ -9,12 +9,13 @@ use App\Domains\Product\Http\Resources\ProductCollection;
 use App\Domains\Product\Http\Resources\ProductResource;
 use App\Domains\Product\Models\Product;
 use App\Domains\Product\Services\ProductService;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
     public function __construct(private readonly ProductService $service) {}
 
-    public function list(ProductListRequest $request)
+    public function list(ProductListRequest $request): JsonResponse
     {
         return $this->makeSuccessResponse(
             new ProductCollection(
@@ -23,7 +24,7 @@ class ProductController extends Controller
         );
     }
 
-    public function show(Product $product)
+    public function show(Product $product): JsonResponse
     {
         return $this->makeSuccessResponse(
             ProductResource::make($this->service->show($product))

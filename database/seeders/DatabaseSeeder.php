@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\Product\DeviceModelSeeder;
-use Database\Seeders\Product\DiscountSeeder;
 use Database\Seeders\Product\ProductColorSeeder;
 use Database\Seeders\Product\ProductSeeder;
 use Database\Seeders\Product\ProductStorageCapacitySeeder;
@@ -31,7 +30,6 @@ class DatabaseSeeder extends Seeder
             ProductStorageCapacitySeeder::class,
             DeviceModelSeeder::class,
             ProductSeeder::class,
-            //            DiscountSeeder::class,
         ]);
     }
 }

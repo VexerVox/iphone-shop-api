@@ -9,12 +9,13 @@ use App\Domains\Auth\Http\Requests\RegisterRequest;
 use App\Domains\Auth\Http\Resources\AuthResource;
 use App\Domains\Auth\Services\AuthService;
 use App\Domains\Common\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
     public function __construct(private readonly AuthService $service) {}
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         $data = $this->service->login($request->email, $request->password);
 
@@ -25,7 +26,7 @@ class AuthController extends Controller
         return $this->makeSuccessResponse(AuthResource::make($data));
     }
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
         return $this->makeSuccessResponse(
             AuthResource::make(
@@ -34,14 +35,14 @@ class AuthController extends Controller
         );
     }
 
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $this->service->forgotPassword($request->email);
 
         return $this->makeSuccessResponse();
     }
 
-    public function changePassword(ChangePasswordRequest $request)
+    public function changePassword(ChangePasswordRequest $request): JsonResponse
     {
         $this->service->changePassword($request->password);
 

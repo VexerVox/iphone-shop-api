@@ -8,6 +8,7 @@ use App\Domains\Checkout\Http\Resources\CheckoutResource;
 use App\Domains\Checkout\Models\Order;
 use App\Domains\Checkout\Services\CheckoutService;
 use App\Domains\Common\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Stripe\Exception\ApiErrorException;
 use Throwable;
 
@@ -18,7 +19,7 @@ class CheckoutController extends Controller
     /**
      * @throws Throwable
      */
-    public function checkout(CheckoutRequest $request)
+    public function checkout(CheckoutRequest $request): JsonResponse
     {
         return $this->makeSuccessResponse(
             CheckoutResource::make(
@@ -30,7 +31,7 @@ class CheckoutController extends Controller
     /**
      * @throws ApiErrorException
      */
-    public function success(Order $order)
+    public function success(Order $order): JsonResponse
     {
         return $this->service->success($order)
             ? $this->makeSuccessResponse()
