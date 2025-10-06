@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Product;
 
-use App\Models\DeviceModel;
+use App\Domains\Product\Models\DeviceModel;
 use Illuminate\Database\Seeder;
 
 class DeviceModelSeeder extends Seeder

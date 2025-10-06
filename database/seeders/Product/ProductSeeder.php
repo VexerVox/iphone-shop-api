@@ -2,10 +2,10 @@
 
 namespace Database\Seeders\Product;
 
-use App\Models\DeviceModel;
-use App\Models\Product;
-use App\Models\ProductColor;
-use App\Models\ProductStorageCapacity;
+use App\Domains\Product\Models\DeviceModel;
+use App\Domains\Product\Models\Product;
+use App\Domains\Product\Models\ProductColor;
+use App\Domains\Product\Models\ProductStorageCapacity;
 use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder

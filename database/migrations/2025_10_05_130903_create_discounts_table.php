@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\DiscountTypeEnum;
+use App\Domains\Product\Enums\DiscountTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

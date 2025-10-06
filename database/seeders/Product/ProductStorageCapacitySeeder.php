@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Product;
 
-use App\Models\ProductStorageCapacity;
+use App\Domains\Product\Models\ProductStorageCapacity;
 use Illuminate\Database\Seeder;
 
 class ProductStorageCapacitySeeder extends Seeder

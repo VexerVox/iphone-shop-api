@@ -2,10 +2,10 @@
 
 namespace Database\Seeders\Product;
 
-use App\Enums\DiscountTypeEnum;
-use App\Models\DeviceModel;
-use App\Models\Discount;
-use App\Models\Product;
+use App\Domains\Product\Enums\DiscountTypeEnum;
+use App\Domains\Product\Models\DeviceModel;
+use App\Domains\Product\Models\Discount;
+use App\Domains\Product\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DiscountSeeder extends Seeder
