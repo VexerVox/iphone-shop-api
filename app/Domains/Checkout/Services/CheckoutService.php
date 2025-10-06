@@ -7,6 +7,7 @@ use App\Domains\Checkout\Data\CheckoutOutputData;
 use App\Domains\Checkout\Data\CheckoutProductData;
 use App\Domains\Checkout\Data\OrderCalculateData;
 use App\Domains\Checkout\Data\ProductCalculateData;
+use App\Domains\Checkout\Data\StripeSessionData;
 use App\Domains\Checkout\Enums\OrderStatusEnum;
 use App\Domains\Checkout\Models\Order;
 use App\Domains\Checkout\Models\OrderItem;
@@ -14,6 +15,8 @@ use App\Domains\Product\Models\Product;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Stripe\Checkout\Session;
+use Stripe\Exception\ApiErrorException;
 use Throwable;
 
 class CheckoutService
@@ -48,13 +51,46 @@ class CheckoutService
             ]);
         }
 
-        // 4. Create order session TODO
+        // 4. Create order session
+        $stripeSessionData = $this->createStripeSession($calculatedOrder->calculatedProducts, $order);
+
+        // 5. Update order stripe_session_id
+        $order->update([
+            'stripe_session_id' => $stripeSessionData->stripeSessionId,
+        ]);
 
         DB::commit();
 
         return CheckoutOutputData::from([
             'orderUuid' => $order->uuid,
+            'paymentUrl' => $stripeSessionData->paymentUrl,
         ]);
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function success(Order $order): bool
+    {
+        if ($order->status == OrderStatusEnum::PAYED) {
+            return true;
+        }
+
+        if (is_null($order->stripe_session_id)) {
+            return false;
+        }
+
+        $session = Session::retrieve($order->stripe_session_id);
+
+        if ($session->payment_status == Session::PAYMENT_STATUS_PAID) {
+            $order->update([
+                'status' => OrderStatusEnum::PAYED,
+            ]);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -88,5 +124,49 @@ class CheckoutService
             'totalPrice' => $perProductPrice * $data->quantity,
             'perProductPrice' => $perProductPrice,
         ]);
+    }
+
+    /**
+     * @param  Collection<ProductCalculateData>  $calculatedProducts
+     *
+     * @throws ApiErrorException
+     */
+    public function createStripeSession(Collection $calculatedProducts, Order $order): StripeSessionData
+    {
+        $lineItems = [];
+
+        foreach ($calculatedProducts as $product) {
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' => $product->product->name,
+                    ],
+                    'unit_amount' => $product->perProductPrice,
+                ],
+                'quantity' => $product->quantity,
+            ];
+        }
+
+        $checkoutSession = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => $lineItems,
+            'mode' => Session::MODE_PAYMENT,
+            'success_url' => $this->checkoutFrontendUrl(config('frontend.checkout.success_url'), $order->uuid),
+            'cancel_url' => $this->checkoutFrontendUrl(config('frontend.checkout.cancel_url'), $order->uuid),
+            'metadata' => [
+                'order_id' => $order->id,
+            ],
+        ]);
+
+        return StripeSessionData::from([
+            'stripeSessionId' => $checkoutSession->id,
+            'paymentUrl' => $checkoutSession->url,
+        ]);
+    }
+
+    protected function checkoutFrontendUrl(string $url, string $orderUuid): string
+    {
+        return config('frontend.base_url').$url.'?uuid='.$orderUuid;
     }
 }

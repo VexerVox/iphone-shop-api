@@ -16,6 +16,7 @@ class Order extends Model
         'status',
         'user_id',
         'total',
+        'stripe_session_id',
     ];
 
     protected $casts = [

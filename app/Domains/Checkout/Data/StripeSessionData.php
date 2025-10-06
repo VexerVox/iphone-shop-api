@@ -4,10 +4,10 @@ namespace App\Domains\Checkout\Data;
 
 use Spatie\LaravelData\Data;
 
-class CheckoutOutputData extends Data
+class StripeSessionData extends Data
 {
     public function __construct(
-        public string $orderUuid,
+        public string $stripeSessionId,
         public string $paymentUrl,
     ) {}
 }

@@ -13,6 +13,7 @@ class CheckoutResource extends JsonResource
     {
         return [
             'orderUuid' => $this->resource->orderUuid,
+            'paymentUrl' => $this->resource->paymentUrl,
         ];
     }
 }
