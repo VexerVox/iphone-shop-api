@@ -38,6 +38,17 @@ class CheckoutService
             'user_id' => $user?->id,
             'status' => OrderStatusEnum::PENDING,
             'total' => $calculatedOrder->totalPrice,
+
+            'email' => $data->email,
+            'phone' => $data->phone,
+
+            'first_name' => $data->firstName,
+            'last_name' => $data->lastName,
+            'address_line_1' => $data->addressLine1,
+            'address_line_2' => $data->addressLine2,
+            'city' => $data->city,
+            'zip_code' => $data->zipCode,
+            'country' => $data->country,
         ]);
 
         // 3. Create order items

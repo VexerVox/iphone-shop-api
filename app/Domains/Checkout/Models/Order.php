@@ -12,11 +12,29 @@ use Illuminate\Support\Str;
 class Order extends Model
 {
     protected $fillable = [
+        // User
+        'user_id',
+
+        // Payment info
+        'stripe_session_id',
+        'total',
+
+        // Order info
         'uuid',
         'status',
-        'user_id',
-        'total',
-        'stripe_session_id',
+
+        // Contact details
+        'email',
+        'phone',
+
+        // Shipping address
+        'first_name',
+        'last_name',
+        'address_line_1',
+        'address_line_2',
+        'city',
+        'zip_code',
+        'country',
     ];
 
     protected $casts = [
