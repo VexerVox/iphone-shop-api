@@ -8,15 +8,14 @@ class PaginationService
 
     public const MAX_LIMIT = 100;
 
-    public static function getPerPage(?int $defaultLimit = null, ?int $maxLimit = null): int
-    {
-        $currentDefaultLimit = $defaultLimit ?? self::DEFAULT_LIMIT;
-        $currentMaxLimit = $maxLimit ?? self::MAX_LIMIT;
-
+    public static function getPerPage(
+        int $defaultLimit = self::DEFAULT_LIMIT,
+        int $maxLimit = self::MAX_LIMIT
+    ): int {
         $validated = request()->validate([
-            'perPage' => ['integer', 'min:1', 'max:'.$currentMaxLimit],
+            'perPage' => ['integer', 'min:1', "max:$maxLimit"],
         ]);
 
-        return (int) ($validated['perPage'] ?? $currentDefaultLimit);
+        return (int) ($validated['perPage'] ?? $defaultLimit);
     }
 }

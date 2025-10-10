@@ -2,6 +2,7 @@
 
 namespace App\Domains\Product\Services;
 
+use App\Domains\Common\Services\OrderByService;
 use App\Domains\Common\Services\PaginationService;
 use App\Domains\Product\Data\ProductIndexData;
 use App\Domains\Product\Models\Product;
@@ -90,8 +91,8 @@ class ProductService
             });
         }
 
-        return $query
-            ->orderBy('id', 'desc')
+        return OrderByService::query($query)
+            ->orderableBy(['name', 'price', 'discounted_price'])
             ->paginate(PaginationService::getPerPage());
     }
 
