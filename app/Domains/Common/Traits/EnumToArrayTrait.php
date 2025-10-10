@@ -2,7 +2,7 @@
 
 namespace App\Domains\Common\Traits;
 
-trait EnumValuesTrait
+trait EnumToArrayTrait
 {
     public static function values(): array
     {

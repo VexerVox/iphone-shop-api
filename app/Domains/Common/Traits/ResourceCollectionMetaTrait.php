@@ -2,8 +2,17 @@
 
 namespace App\Domains\Common\Traits;
 
-trait CollectionMetaTrait
+/**
+ * @method currentPage(): int
+ * @method lastPage(): int
+ * @method perPage(): int
+ * @method total(): int
+ */
+trait ResourceCollectionMetaTrait
 {
+    /**
+     * @return array<string, int>
+     */
     protected function getMeta(): array
     {
         // LengthAwarePaginator

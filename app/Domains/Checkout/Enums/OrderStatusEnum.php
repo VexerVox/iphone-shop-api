@@ -2,11 +2,11 @@
 
 namespace App\Domains\Checkout\Enums;
 
-use App\Domains\Common\Traits\EnumValuesTrait;
+use App\Domains\Common\Traits\EnumToArrayTrait;
 
 enum OrderStatusEnum: string
 {
-    use EnumValuesTrait;
+    use EnumToArrayTrait;
 
     case PENDING = 'pending';
     case PAYED = 'payed';

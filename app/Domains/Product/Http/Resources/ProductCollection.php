@@ -2,13 +2,13 @@
 
 namespace App\Domains\Product\Http\Resources;
 
-use App\Domains\Common\Traits\CollectionMetaTrait;
+use App\Domains\Common\Traits\ResourceCollectionMetaTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProductCollection extends ResourceCollection
 {
-    use CollectionMetaTrait;
+    use ResourceCollectionMetaTrait;
 
     public $collects = ProductResource::class;
 

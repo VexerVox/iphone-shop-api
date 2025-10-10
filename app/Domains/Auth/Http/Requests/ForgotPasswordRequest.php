@@ -2,12 +2,12 @@
 
 namespace App\Domains\Auth\Http\Requests;
 
-use App\Domains\Common\Traits\RequestFailedTrait;
+use App\Domains\Common\Traits\RequestFailedValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ForgotPasswordRequest extends FormRequest
 {
-    use RequestFailedTrait;
+    use RequestFailedValidationTrait;
 
     public function rules(): array
     {
