@@ -92,9 +92,25 @@ class ProductService
 
         return $query
             ->orderBy('id', 'desc')
-            ->paginate(
-                (new PaginationService)->getPerPage()
-            );
+            ->paginate(PaginationService::getPerPage());
+    }
+
+    /**
+     * @return Collection<Product>
+     */
+    public function recommended(): Collection
+    {
+        return Product::query()
+            ->where('is_available', true)
+            ->where('is_recommended', true)
+            ->with([
+                'deviceModel',
+                'color',
+                'storageCapacity',
+            ])
+            ->orderBy('id', 'desc')
+            ->get();
+
     }
 
     public function show(Product $product): Product

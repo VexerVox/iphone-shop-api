@@ -10,4 +10,5 @@ Route::get('/storage-capacities', [ProductStorageCapacityController::class, 'ind
 Route::get('/device-models', [DeviceModelController::class, 'index'])->name('device-models');
 
 Route::get('/', [ProductController::class, 'list'])->name('index');
+Route::get('/recommended', [ProductController::class, 'recommended'])->name('recommended');
 Route::get('/{product:slug}', [ProductController::class, 'show'])->name('show');

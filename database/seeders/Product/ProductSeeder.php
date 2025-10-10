@@ -27,6 +27,11 @@ class ProductSeeder extends Seeder
                 'has_dualsim',
             ]
         );
+
+        Product::query()
+            ->orderBy('id', 'desc')
+            ->limit(10)
+            ->update(['is_recommended' => true]);
     }
 
     private function data(): array

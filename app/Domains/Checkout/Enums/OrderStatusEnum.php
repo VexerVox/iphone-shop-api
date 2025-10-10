@@ -8,9 +8,8 @@ enum OrderStatusEnum: string
 {
     use EnumValuesTrait;
 
-    case CREATED = 'created';
     case PENDING = 'pending';
     case PAYED = 'payed';
-    case CANCELLED = 'cancelled';
+    case PAYMENT_FAILED = 'payment_failed';
     case COMPLETED = 'completed';
 }

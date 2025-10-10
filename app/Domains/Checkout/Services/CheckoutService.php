@@ -36,7 +36,7 @@ class CheckoutService
         // 2. Create order
         $order = Order::create([
             'user_id' => $user?->id,
-            'status' => OrderStatusEnum::CREATED,
+            'status' => OrderStatusEnum::PENDING,
             'total' => $calculatedOrder->totalPrice,
         ]);
 

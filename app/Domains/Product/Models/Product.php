@@ -13,12 +13,15 @@ class Product extends Model
         'storage_capacity_id',
         'name',
         'slug',
+        'preview_image',
+        'full_image',
         'price',
         'discounted_price',
         'has_esim',
         'has_nanosim',
         'has_dualsim',
         'is_available',
+        'is_recommended',
     ];
 
     public function deviceModel(): BelongsTo

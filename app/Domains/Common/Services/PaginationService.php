@@ -8,7 +8,7 @@ class PaginationService
 
     public const MAX_LIMIT = 100;
 
-    public function getPerPage(?int $defaultLimit = null, ?int $maxLimit = null): int
+    public static function getPerPage(?int $defaultLimit = null, ?int $maxLimit = null): int
     {
         $currentDefaultLimit = $defaultLimit ?? self::DEFAULT_LIMIT;
         $currentMaxLimit = $maxLimit ?? self::MAX_LIMIT;

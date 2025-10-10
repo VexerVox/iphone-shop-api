@@ -24,6 +24,13 @@ class ProductController extends Controller
         );
     }
 
+    public function recommended(): JsonResponse
+    {
+        return $this->makeSuccessResponse(
+            ProductResource::collection($this->service->recommended())
+        );
+    }
+
     public function show(Product $product): JsonResponse
     {
         return $this->makeSuccessResponse(

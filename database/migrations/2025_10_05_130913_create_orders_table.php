@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', OrderStatusEnum::values())->default(OrderStatusEnum::CREATED->value);
+            $table->enum('status', OrderStatusEnum::values())->default(OrderStatusEnum::PENDING->value);
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedInteger('total');
             $table->timestamps();
