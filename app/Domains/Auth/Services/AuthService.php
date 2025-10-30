@@ -4,7 +4,7 @@ namespace App\Domains\Auth\Services;
 
 use App\Domains\Auth\Data\AuthData;
 use App\Domains\Auth\Models\User;
-use App\Notifications\ForgotPasswordNotification;
+use App\Domains\Auth\Notifications\ForgotPasswordNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
