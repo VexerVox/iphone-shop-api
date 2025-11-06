@@ -12,6 +12,7 @@ enum OrderStatusEnum: string
     case PENDING = 'pending';
 
     // Payment processing (auto)
+    case PAYMENT_PROCESSING = 'payment_processing';
     case PAYED = 'payed';
     case PAYMENT_FAILED = 'payment_failed';
 

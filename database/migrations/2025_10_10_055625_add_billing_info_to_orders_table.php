@@ -10,17 +10,17 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             // Contact info
-            $table->string('email');
-            $table->string('phone');
+            $table->string('email')->after('stripe_session_id');
+            $table->string('phone')->after('email');
 
             // Shipping address
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('address_line_1');
-            $table->string('address_line_2')->nullable();
-            $table->string('city');
-            $table->string('zip_code');
-            $table->string('country');
+            $table->string('first_name')->after('phone');
+            $table->string('last_name')->after('first_name');
+            $table->string('address_line_1')->after('last_name');
+            $table->string('address_line_2')->after('address_line_1')->nullable();
+            $table->string('city')->after('address_line_2');
+            $table->string('zip_code')->after('city');
+            $table->string('country')->after('zip_code');
         });
     }
 

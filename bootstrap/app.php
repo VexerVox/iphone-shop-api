@@ -21,6 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(ForceJsonResponseMiddleware::class);
     })
+    ->withEvents(discover: array_map(
+        fn ($path) => $path.'/Listeners',
+        glob(__DIR__.'/../app/Domains/*', GLOB_ONLYDIR)
+    ))
     ->withExceptions(function (Exceptions $exceptions): void {
         if (DB::transactionLevel() > 0) {
             DB::rollBack();

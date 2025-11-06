@@ -35,10 +35,13 @@ class Order extends Model
         'city',
         'zip_code',
         'country',
+
+        'payment_info',
     ];
 
     protected $casts = [
         'status' => OrderStatusEnum::class,
+        'payment_info' => 'array',
     ];
 
     protected static function booted(): void
